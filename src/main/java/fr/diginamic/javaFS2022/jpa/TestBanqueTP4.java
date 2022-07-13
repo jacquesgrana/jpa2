@@ -23,6 +23,7 @@ public class TestBanqueTP4 {
 	private static final String SELECT_COMPTES_FROM_CLIENT = "SELECT c FROM Compte c JOIN c.clients cl WHERE cl.id = :idClient ";
 	private static final String SELECT_COMPTES_FROM_BANQUE = "SELECT c FROM Compte c JOIN c.clients cl JOIN cl.banque b WHERE b.id = :idBanque";
 	private static final String SELECT_COMPTES_FROM_OPERATION_SUP_1K = "SELECT c FROM Compte c JOIN c.operations o WHERE o.montant > :montant";
+	private static final String SELECT_COMPTES_FROM_NB_OPERATION_EQUALS_1 = "SELECT DISTINCT c FROM Compte c JOIN c.operations o GROUP BY (o.id) HAVING (COUNT(o) >= 1)";
 
 	public static void main(String[] args) {
 		
@@ -119,6 +120,9 @@ public class TestBanqueTP4 {
     	query3.setParameter("montant", montant);
     	List<Compte> comptes3 = query3.getResultList();
     	
+    	TypedQuery<Compte> query4 = em.createQuery(SELECT_COMPTES_FROM_NB_OPERATION_EQUALS_1, Compte.class);
+    	List<Compte> comptes4 = query4.getResultList();
+    	
     	System.out.println("\nComptes du client d'id : " + idClient);
     	for(Compte compte : comptes) {
     		System.out.println(compte);
@@ -131,6 +135,11 @@ public class TestBanqueTP4 {
     	
     	System.out.println("\nComptes avec des opérations > " + montant);
     	for(Compte compte : comptes3) {
+    		System.out.println(compte);
+    	}
+    	
+    	System.out.println("\nComptes avec au moins une opération");
+    	for(Compte compte : comptes4) {
     		System.out.println(compte);
     	}
     	
