@@ -14,6 +14,7 @@ import fr.diginamic.javaFS2022.jpa.banque.entite.Client;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Compte;
 import fr.diginamic.javaFS2022.jpa.banque.entite.LivretA;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Operation;
+import fr.diginamic.javaFS2022.jpa.banque.entite.Virement;
 
 public class TestBanqueTP4 {
 
@@ -86,6 +87,12 @@ public class TestBanqueTP4 {
     	client3.getComptes().add(livretA1);
     	
     	em.persist(client3);
+    	
+    	Virement vir1 = new Virement(LocalDateTime.of(2022,07, 17, 18, 00), -50000d, "achat bitcoins", compte3, "Durand Jean");
+    	Operation ope6 = new Operation(LocalDateTime.of(2022,07, 13, 11, 10), 3000.d, "Vente d'un rein", compte3);
+    	
+    	em.persist(vir1);
+    	em.persist(ope6);
     	
     	em.getTransaction().commit();
     	em.close();
