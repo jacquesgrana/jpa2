@@ -48,6 +48,19 @@ public class Operation {
 		this.montant = montant;
 		this.motif = motif;
 	}
+	
+	/**
+	 * @param date
+	 * @param montant
+	 * @param motif
+	 */
+	public Operation(LocalDateTime date, Double montant, String motif, Compte compte) {
+		super();
+		this.date = date;
+		this.montant = montant;
+		this.motif = motif;
+		this.compte = compte;
+	}
 
 	/**
 	 * @return the id

@@ -1,5 +1,6 @@
 package fr.diginamic.javaFS2022.jpa.banque.entite;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -19,7 +20,7 @@ public class Banque {
 	private String nom;
 	
 	@OneToMany(mappedBy="banque")
-	private Set<Client> client;
+	private Set<Client> client = new HashSet<>();
 
 	/**
 	 * 

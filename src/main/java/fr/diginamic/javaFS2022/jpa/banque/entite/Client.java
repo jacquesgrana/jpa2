@@ -1,6 +1,7 @@
 package fr.diginamic.javaFS2022.jpa.banque.entite;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class Client {
 	@JoinTable(name="Possede",
 	joinColumns= @JoinColumn(name="id_client", referencedColumnName="id"),
 	inverseJoinColumns= @JoinColumn(name="id_compte", referencedColumnName="id"))
-	private Set<Compte> comptes;
+	private Set<Compte> comptes = new HashSet<>();
 
 	/**
 	 * 
@@ -54,12 +55,13 @@ public class Client {
 	 * @param dateNaissance
 	 * @param adresse
 	 */
-	public Client(String nom, String prenom, LocalDate dateNaissance, Adresse adresse) {
+	public Client(String nom, String prenom, LocalDate dateNaissance, Adresse adresse, Banque banque) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
+		this.banque = banque;
 	}
 
 

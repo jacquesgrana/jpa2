@@ -1,5 +1,6 @@
 package fr.diginamic.javaFS2022.jpa.banque.entite;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,10 +27,10 @@ public class Compte {
 	private Double solde;
 	
 	@ManyToMany(mappedBy="comptes")
-	private Set<Client> clients;
+	private Set<Client> clients = new HashSet<>();
 	
 	@OneToMany(mappedBy="compte")
-	private Set<Operation> operations;
+	private Set<Operation> operations = new HashSet<>();
 
 	/**
 	 * 
