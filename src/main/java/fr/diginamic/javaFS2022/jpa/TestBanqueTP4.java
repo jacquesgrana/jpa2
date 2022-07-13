@@ -20,8 +20,9 @@ import fr.diginamic.javaFS2022.jpa.banque.entite.Virement;
 
 public class TestBanqueTP4 {
 	
-	//SELECT c FROM Compte c JOIN c.
-	private static final String SELECT_COMPTES_FROM_CLIENT = "SELECT c FROM Compte c JOIN c.clients cl WHERE cl.id = :id ";
+	private static final String SELECT_COMPTES_FROM_CLIENT = "SELECT c FROM Compte c JOIN c.clients cl WHERE cl.id = :idClient ";
+	private static final String SELECT_COMPTES_FROM_BANQUE = "SELECT c FROM Compte c JOIN c.clients cl JOIN cl.banque b WHERE b.id = :idBanque";
+	private static final String SELECT_COMPTES_FROM_OPERATION_SUP_1K = "SELECT c FROM Compte c JOIN c.operations o WHERE o.montant > :montant";
 
 	public static void main(String[] args) {
 		
@@ -103,12 +104,33 @@ public class TestBanqueTP4 {
     	
     	em.getTransaction().commit();
     	
-    	Integer idEmprunt = 15;
+    	Integer idClient = 15;
     	TypedQuery<Compte> query1 = em.createQuery(SELECT_COMPTES_FROM_CLIENT, Compte.class);
-    	query1.setParameter("id", idEmprunt);
+    	query1.setParameter("idClient", idClient);
     	List<Compte> comptes = query1.getResultList();
     	
+    	Integer idBanque = 2;
+    	TypedQuery<Compte> query2 = em.createQuery(SELECT_COMPTES_FROM_BANQUE, Compte.class);
+    	query2.setParameter("idBanque", idBanque);
+    	List<Compte> comptes2 = query2.getResultList();
+    	
+    	Double montant = 1000d;
+    	TypedQuery<Compte> query3 = em.createQuery(SELECT_COMPTES_FROM_OPERATION_SUP_1K, Compte.class);
+    	query3.setParameter("montant", montant);
+    	List<Compte> comptes3 = query3.getResultList();
+    	
+    	System.out.println("\nComptes du client d'id : " + idClient);
     	for(Compte compte : comptes) {
+    		System.out.println(compte);
+    	}
+    	
+    	System.out.println("\nComptes de la banque d'id : " + idBanque);
+    	for(Compte compte : comptes2) {
+    		System.out.println(compte);
+    	}
+    	
+    	System.out.println("\nComptes avec des opérations > " + montant);
+    	for(Compte compte : comptes3) {
     		System.out.println(compte);
     	}
     	
