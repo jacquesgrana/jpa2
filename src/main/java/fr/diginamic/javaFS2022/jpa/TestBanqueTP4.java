@@ -8,9 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import fr.diginamic.javaFS2022.jpa.banque.entite.Adresse;
+import fr.diginamic.javaFS2022.jpa.banque.entite.AssuranceVie;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Banque;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Client;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Compte;
+import fr.diginamic.javaFS2022.jpa.banque.entite.LivretA;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Operation;
 
 public class TestBanqueTP4 {
@@ -32,9 +34,11 @@ public class TestBanqueTP4 {
     	Adresse adresse1 = new Adresse(5, "rue Martin", 99999, "Martinville");
     	em.persist(new Client("Martin", "Martin", LocalDate.of(1977,12, 29), adresse1, banque1));
     	em.persist(new Client("Martin", "Martine", LocalDate.of(1980,01, 12), adresse1, banque2));
+    	
     	em.getTransaction().commit();
     	
     	em.getTransaction().begin();
+    	
     	Compte compte1 = new Compte("ZA 4522 GFFH", 1000.0d);
     	Compte compte2 = new Compte("RETH 5487 GFD", -250.0d);
     	
@@ -61,6 +65,27 @@ public class TestBanqueTP4 {
     	em.persist(ope4);
     	em.persist(ope5);
     	
+    	Compte compte3 = new Compte("Compte joint 44582 fggh 45", 15000.0d);
+    	client1.getComptes().add(compte3);
+    	client2.getComptes().add(compte3);
+    	
+    	em.persist(compte3);
+    	
+    	
+    	
+    	Adresse adresse2 = new Adresse(10, "rue de la Soif", 34000, "Montpellier");
+    	Client client3 = new Client("Dupont", "Alfred", LocalDate.of(1972,02, 18), adresse2, banque2);
+    	AssuranceVie assuvie1 = new AssuranceVie("gghyyt 5542 dd", 2000.0d, LocalDate.of(2025,01, 01), 0.25d);
+    	LivretA livretA1 = new LivretA("GGHTY4527", 500.0d, 0.05d);
+    	
+    	em.persist(assuvie1);
+    	em.persist(livretA1);
+    	
+    	
+    	client3.getComptes().add(assuvie1);
+    	client3.getComptes().add(livretA1);
+    	
+    	em.persist(client3);
     	
     	em.getTransaction().commit();
     	em.close();

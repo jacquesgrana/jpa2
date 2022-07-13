@@ -28,6 +28,9 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Client</class>
 		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Compte</class>
 		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Operation</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.LivretA</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.AssuranceVie</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Virement</class>
 
 		<properties>
 
