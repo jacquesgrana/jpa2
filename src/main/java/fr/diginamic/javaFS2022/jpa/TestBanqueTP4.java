@@ -2,10 +2,12 @@ package fr.diginamic.javaFS2022.jpa;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import fr.diginamic.javaFS2022.jpa.banque.entite.Adresse;
 import fr.diginamic.javaFS2022.jpa.banque.entite.AssuranceVie;
@@ -17,10 +19,11 @@ import fr.diginamic.javaFS2022.jpa.banque.entite.Operation;
 import fr.diginamic.javaFS2022.jpa.banque.entite.Virement;
 
 public class TestBanqueTP4 {
+	
+	//SELECT c FROM Compte c JOIN c.
+	private static final String SELECT_COMPTES_FROM_CLIENT = "SELECT c FROM Compte c JOIN c.clients cl WHERE cl.id = :id ";
 
 	public static void main(String[] args) {
-		
-		//Scanner sc = new Scanner(System.in);
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa_banque");
     	EntityManager em = emf.createEntityManager();
@@ -89,12 +92,27 @@ public class TestBanqueTP4 {
     	em.persist(client3);
     	
     	Virement vir1 = new Virement(LocalDateTime.of(2022,07, 17, 18, 00), -50000d, "achat bitcoins", compte3, "Durand Jean");
+    	Virement vir2 = new Virement(LocalDateTime.of(2022,06, 03, 11, 00), -10000d, "achat ethers", compte3, "Durand Jean");
     	Operation ope6 = new Operation(LocalDateTime.of(2022,07, 13, 11, 10), 3000.d, "Vente d'un rein", compte3);
+    	Operation ope7 = new Operation(LocalDateTime.of(2022,06, 20, 11, 10), 60000.d, "Avance sur salaire", compte3);
     	
     	em.persist(vir1);
+    	em.persist(vir2);
     	em.persist(ope6);
+    	em.persist(ope7);
     	
     	em.getTransaction().commit();
+    	
+    	Integer idEmprunt = 15;
+    	TypedQuery<Compte> query1 = em.createQuery(SELECT_COMPTES_FROM_CLIENT, Compte.class);
+    	query1.setParameter("id", idEmprunt);
+    	List<Compte> comptes = query1.getResultList();
+    	
+    	for(Compte compte : comptes) {
+    		System.out.println(compte);
+    	}
+    	
+    	
     	em.close();
     	emf.close();
 
