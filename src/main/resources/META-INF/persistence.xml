@@ -6,11 +6,47 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	<persistence-unit name="jpa_local"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/test_jpa" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mariadb://localhost:3306/test_jpa" />
 			<property name="javax.persistence.jdbc.user" value="admin" />
-			<property name="javax.persistence.jdbc.password" value="Ktoto1956" />
-			<property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.password"
+				value="Ktoto1956" />
+			<property name="javax.persistence.jdbc.driver"
+				value="org.mariadb.jdbc.Driver" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="jpa_banque"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Adresse</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Banque</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Client</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Compte</class>
+		<class>fr.diginamic.javaFS2022.jpa.banque.entite.Operation</class>
+
+		<properties>
+
+			<!-- desactiver l'autodetection des classes de type @Entity -->
+			<property name="hibernate.archive.autodetection" value="" />
+
+			<!-- Drop and create à chaque redémarrage -->
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="drop-and-create" />
+
+
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mariadb://localhost:3306/banque" />
+			<property name="javax.persistence.jdbc.user" value="admin" />
+			<property name="javax.persistence.jdbc.password"
+				value="Ktoto1956" />
+			<property name="javax.persistence.jdbc.driver"
+				value="org.mariadb.jdbc.Driver" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 		</properties>
